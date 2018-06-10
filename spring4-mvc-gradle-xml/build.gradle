@@ -1,0 +1,52 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'jetty'
+
+// JDK 7
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+
+repositories {
+        mavenCentral()
+        maven {
+            url "http://nexus.anotheria.net/nexus/content/groups/public"
+        }
+    }
+dependencies {
+ 
+	compile 'ch.qos.logback:logback-classic:1.1.3'
+	compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
+	compile 'javax.servlet:jstl:1.2'
+	compile 'net.anotheria:moskito-core:2.5.5'
+	compile 'net.anotheria:moskito-cdi:2.5.5'
+	compile 'net.anotheria:moskito-webui:2.4.2'
+	
+}
+
+// Embeded Jetty for testing
+jettyRun{
+	contextPath = "spring4"
+	httpPort = 8181
+}
+
+jettyRunWar{
+	contextPath = "spring4"
+	httpPort = 8181
+}
+
+//For Eclipse IDE only
+eclipse {
+
+  wtp {
+    component {
+      
+      //define context path, default to project folder name
+      contextPath = 'spring4'
+      
+    }
+    
+  }
+}
+
